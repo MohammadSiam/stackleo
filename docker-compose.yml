@@ -1,0 +1,34 @@
+services:
+  stackleo-app-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    image: stackleo-app:${PROD_TAG:-${TAG:-${TEST_TAG:-prod-latest}}}
+    container_name: stackleo-app-prod
+    ports:
+      - "3003:3000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+    networks:
+      - stackleo-net
+
+networks:
+  stackleo-net:
+    name: stackleo-net
+    driver: bridge
