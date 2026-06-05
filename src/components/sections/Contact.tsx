@@ -11,9 +11,9 @@ type Status = 'idle' | 'loading' | 'success' | 'error'
 
 const contactInfo = [
   { icon: '🌐', label: 'Website',  val: 'www.stackleo.com',     href: 'http://www.stackleo.com' },
-  { icon: '✉️', label: 'Email',    val: 'contact@stackleo.com', href: 'mailto:contact@stackleo.com' },
+  { icon: '✉️', label: 'Email',    val: 'hello@stackleo.com',  href: 'mailto:hello@stackleo.com' },
   { icon: '📍', label: 'Location', val: 'Bangladesh 🇧🇩',      href: null },
-  { icon: '📞', label: 'Phone',    val: '+880 1XXX-XXXXXX',     href: 'tel:+8801XXXXXXXXX' },
+  { icon: '📞', label: 'Phone',    val: '+880 1913-519903',     href: 'tel:+8801913519903' },
 ]
 
 const serviceOptions = ['Custom Software', 'Web Application', 'Mobile App', 'UI/UX Design', 'Cloud & DevOps', 'SaaS Development', 'IT Consulting', 'Other']

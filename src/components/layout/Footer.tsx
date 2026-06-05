@@ -11,7 +11,7 @@ const columns = [
   },
   {
     title: 'Contact',
-    links: ['contact@stackleo.com', 'www.stackleo.com', 'Bangladesh 🇧🇩', '+880 1XXX-XXXXXX'],
+    links: ['hello@stackleo.com', 'www.stackleo.com', 'Bangladesh 🇧🇩', '+880 1913-519903'],
   },
 ]
 
