@@ -7,7 +7,7 @@ import Pill from '@/components/ui/Pill'
 import { fadeLeft, fadeRight } from '@/lib/motion'
 import { useTheme } from '@/lib/theme'
 
-type Status = 'idle' | 'success' | 'error'
+type Status = 'idle' | 'loading' | 'success' | 'error'
 
 const contactInfo = [
   { icon: '🌐', label: 'Website',  val: 'www.stackleo.com',     href: 'http://www.stackleo.com' },
@@ -26,18 +26,30 @@ export default function Contact() {
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }))
 
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault()
     if (!form.email || !form.message) {
       setStatus('error')
       setTimeout(() => setStatus('idle'), 3000)
       return
     }
-    setStatus('success')
-    setTimeout(() => {
-      setStatus('idle')
-      setForm({ fname: '', lname: '', email: '', phone: '', service: '', message: '' })
-    }, 4000)
+    setStatus('loading')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) throw new Error()
+      setStatus('success')
+      setTimeout(() => {
+        setStatus('idle')
+        setForm({ fname: '', lname: '', email: '', phone: '', service: '', message: '' })
+      }, 4000)
+    } catch {
+      setStatus('error')
+      setTimeout(() => setStatus('idle'), 3000)
+    }
   }
 
   const inputCls = `w-full px-4 py-3 rounded-lg text-sm outline-none border transition-all ${
@@ -50,6 +62,11 @@ export default function Contact() {
     status === 'success' ? 'linear-gradient(90deg,#1A8A40,#4DDE8A)' :
     status === 'error'   ? 'linear-gradient(90deg,#C84020,#E84A00)' :
                            'linear-gradient(90deg,#E84A00,#FF7A00,#FFB800)'
+  const btnLabel =
+    status === 'success' ? "✓ Message Sent! We'll respond within 24h" :
+    status === 'error'   ? '⚠ Something went wrong — please try again' :
+    status === 'loading' ? 'Sending…' :
+                           'Send Message →'
 
   return (
     <section id="contact" aria-label="Contact Us" className={`py-24 px-[5%] ${isDark ? 'bg-ink-900' : 'bg-[#F9F6F2]'}`}>
@@ -158,13 +175,11 @@ export default function Contact() {
                 whileHover={status === 'idle' ? { y: -2 } : {}}
                 whileTap={status === 'idle' ? { scale: 0.98 } : {}}
                 type="submit"
-                disabled={status === 'success'}
+                disabled={status === 'success' || status === 'loading'}
                 className="w-full py-3.5 rounded-xl text-white font-display font-bold text-base disabled:opacity-80 transition-all"
                 style={{ background: btnBg, boxShadow: '0 6px 24px rgba(255,122,0,.28)' }}
               >
-                {status === 'success' ? '✓ Message Sent! We\'ll respond within 24h'
-                  : status === 'error' ? '⚠ Please fill required fields'
-                  : 'Send Message →'}
+                {btnLabel}
               </motion.button>
             </form>
           </div>

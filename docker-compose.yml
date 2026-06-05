@@ -6,6 +6,8 @@ services:
       target: production
     image: stackleo-app:${PROD_TAG:-${TAG:-${TEST_TAG:-prod-latest}}}
     container_name: stackleo-app-prod
+    env_file:
+      - .env.local
     ports:
       - "3003:3000"
     restart: unless-stopped
