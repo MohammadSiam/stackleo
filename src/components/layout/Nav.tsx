@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '@/lib/theme'
 
@@ -16,6 +17,8 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const { isDark, toggleTheme } = useTheme()
+  const pathname = usePathname()
+  const router = useRouter()
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20)
@@ -25,8 +28,11 @@ export default function Nav() {
 
   const handleLink = (id: string) => {
     setMenuOpen(false)
-    const el = document.getElementById(id)
-    el?.scrollIntoView({ behavior: 'smooth' })
+    if (pathname === '/') {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      router.push(`/#${id}`)
+    }
   }
 
   return (
