@@ -16,10 +16,8 @@ const columns = [
 ]
 
 const socials = [
-  { label: 'LinkedIn', char: 'in' },
-  { label: 'GitHub',   char: 'gh' },
-  { label: 'Twitter',  char: '𝕏'  },
-  { label: 'Facebook', char: 'f'  },
+  { label: 'LinkedIn', char: 'in', href: 'https://www.linkedin.com/company/stackleo/' },
+  { label: 'Facebook', char: 'f',  href: 'https://www.facebook.com/StackLeoBD' },
 ]
 
 export default function Footer() {
@@ -37,10 +35,12 @@ export default function Footer() {
               Building Software Solutions, Empowering Businesses — your trusted global technology partner.
             </p>
             <div className="flex gap-2">
-              {socials.map(({ label, char }) => (
+              {socials.map(({ label, char, href }) => (
                 <a
                   key={label}
-                  href="#"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="w-9 h-9 rounded-lg bg-white/[0.05] border border-white/10 flex items-center justify-center text-white/40 text-sm
                     transition-all duration-200 hover:bg-orange-500/15 hover:text-orange-300 hover:-translate-y-0.5"
