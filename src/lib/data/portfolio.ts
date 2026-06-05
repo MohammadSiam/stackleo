@@ -13,7 +13,7 @@ export type Project = {
 export const projects: readonly Project[] = [
   {
     slug: 'outfit',
-    image: 'outfit.stackleo.com.png',
+    image: 'projects/outfit.stackleo.com.png',
     cat: 'Fashion / E-Commerce',
     name: 'Outfit — Online Fashion Store',
     desc: 'A modern fashion e-commerce platform with curated collections, seamless checkout, and a personalised shopping experience.',
@@ -24,7 +24,7 @@ export const projects: readonly Project[] = [
   },
   {
     slug: 'lenden',
-    image: 'lenden.stackleo.com.png',
+    image: 'projects/lenden.stackleo.com.png',
     cat: 'FinTech / Lending',
     name: 'LenDen — Peer Lending Platform',
     desc: 'A transparent peer-to-peer lending platform enabling individuals to lend and borrow with flexible terms and real-time tracking.',
