@@ -76,7 +76,7 @@ export default async function PortfolioDetailPage({ params }: Props) {
           {/* Tech tags */}
           <div className="flex flex-wrap gap-2 mb-8">
             {tags.map((t) => (
-              <span key={t} className="text-xs font-semibold px-3 py-1 rounded-md bg-chip text-chip">
+              <span key={t} className="text-xs font-semibold px-3 py-1 rounded-md bg-orange-600 text-white">
                 {t}
               </span>
             ))}

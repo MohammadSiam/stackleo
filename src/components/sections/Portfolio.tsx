@@ -50,7 +50,7 @@ export default function Portfolio() {
 
                   <div className="flex flex-wrap gap-1.5 mb-3">
                     {tags.map((t) => (
-                      <span key={t} className="text-[0.67rem] font-semibold px-2 py-0.5 rounded-md bg-chip text-chip">
+                      <span key={t} className="text-[0.67rem] font-semibold px-2 py-0.5 rounded-md bg-orange-600 text-white">
                         {t}
                       </span>
                     ))}

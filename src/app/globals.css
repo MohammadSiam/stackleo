@@ -89,7 +89,7 @@
   --theme-bg-form:    #FFFFFF;
   --theme-bg-ghost:   #FFFFFF;
   --theme-bg-field:   #FFFFFF;
-  --theme-bg-chip:    #FFE0CC;
+  --theme-bg-chip:    #C2410C;
   --theme-icon-bg:    #FFF4E6;
   --theme-icon-bg-hi: #FFE8CC;
   --theme-pill-bg:    #FFE8CC;
@@ -100,7 +100,7 @@
   --theme-fg-faint:   #6B7280;
   --theme-fg-dim:     #9CA3AF;
   --theme-fg-ph:      #B0B7C3;
-  --theme-chip-text:  #7C2D12;
+  --theme-chip-text:  #FFFFFF;
   --theme-pill-text:  #C2410C;
 
   --theme-line:        rgba(232,74,0,.12);
