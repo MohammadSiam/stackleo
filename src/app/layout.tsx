@@ -50,7 +50,6 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'StackLeo — Software Development Company, Bangladesh',
     description: 'Building software solutions that empower businesses.',
-    creator: '@stackleo',
     images: ['/opengraph-image'],
   },
   robots: {
