@@ -59,7 +59,7 @@
   --theme-bg-form:   #13131A;
   --theme-bg-ghost:  rgba(255,255,255,.03);
   --theme-bg-field:  #1C1C26;
-  --theme-bg-chip:   rgba(255,255,255,.07);
+  --theme-bg-chip:   rgba(255,255,255,.12);
   --theme-icon-bg:   rgba(232,74,0,.10);
   --theme-icon-bg-hi:rgba(232,74,0,.20);
   --theme-pill-bg:   rgba(232,74,0,.10);
@@ -70,7 +70,7 @@
   --theme-fg-faint:  rgba(255,255,255,.40);
   --theme-fg-dim:    rgba(255,255,255,.35);
   --theme-fg-ph:     rgba(255,255,255,.30);
-  --theme-chip-text: rgba(255,255,255,.55);
+  --theme-chip-text: #FFFFFF;
   --theme-pill-text: #FFB800;
 
   --theme-line:        rgba(255,255,255,.10);
@@ -100,7 +100,7 @@
   --theme-fg-faint:  #6B7280;
   --theme-fg-dim:    #9CA3AF;
   --theme-fg-ph:     #9CA3AF;
-  --theme-chip-text: #6B7280;
+  --theme-chip-text: #000000;
   --theme-pill-text: #C2410C;
 
   --theme-line:        rgba(0,0,0,.08);

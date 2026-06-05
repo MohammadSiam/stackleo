@@ -7,11 +7,12 @@ import { fadeLeft, fadeRight } from '@/lib/motion'
 import { useTheme } from '@/lib/theme'
 
 const techStack = [
-  { label: 'React/Next.js', darkColor: '#FF7A00', lightBg: '#fff5eb', lightText: '#c85000' },
-  { label: 'Node.js',       darkColor: '#3B82F6', lightBg: '#eef3ff', lightText: '#2250C4' },
-  { label: 'Python',        darkColor: '#10B981', lightBg: '#edfaf2', lightText: '#1A8A40' },
-  { label: 'React Native',  darkColor: '#9B3FFF', lightBg: '#f2ecff', lightText: '#6B30B0' },
-  { label: 'AWS/GCP',       darkColor: '#EF4444', lightBg: '#fff0ee', lightText: '#C84020' },
+  { label: 'React/Next.js',  darkColor: '#FF7A00', lightBg: '#fff5eb', lightText: '#c85000' },
+  { label: 'Node.js',        darkColor: '#3B82F6', lightBg: '#eef3ff', lightText: '#2250C4' },
+  { label: 'NestJS',         darkColor: '#EF4444', lightBg: '#fff0ee', lightText: '#C84020' },
+  { label: 'PostgreSQL',     darkColor: '#10B981', lightBg: '#edfaf2', lightText: '#1A8A40' },
+  { label: 'React Native',   darkColor: '#9B3FFF', lightBg: '#f2ecff', lightText: '#6B30B0' },
+  { label: 'Flutter',        darkColor: '#38BDF8', lightBg: '#e8f7ff', lightText: '#0369a1' },
 ]
 
 export default function About() {
@@ -96,22 +97,21 @@ export default function About() {
             className={`font-display font-black tracking-tight mb-4 mt-3 ${isDark ? 'text-white' : 'text-gray-900'}`}
             style={{ fontSize: 'clamp(2rem,3.5vw,3rem)', lineHeight: 1.15 }}
           >
-            Engineering Tomorrow&apos;s
-            <br />
-            <span className="grad-text">Digital Landscape</span>
+            Who We Are &amp;{' '}
+            <span className="grad-text">What We Stand For</span>
           </h2>
           <p className={`text-base leading-relaxed mb-3 ${isDark ? 'text-white/55' : 'text-gray-600'}`}>
-            StackLeo is a forward-thinking software company dedicated to delivering high-quality, scalable digital solutions. We help businesses transform with innovation, precision, and reliability.
+            StackLeo is a Dhaka-based software company building modern SaaS products, web applications, and mobile apps for businesses in Bangladesh and beyond.
           </p>
           <p className={`text-sm leading-relaxed mb-6 ${isDark ? 'text-white/40' : 'text-gray-500'}`}>
-            From startups to enterprises, we build software that doesn&apos;t just work — it scales, evolves, and drives measurable business outcomes.
+            We don&apos;t just write code — we understand your business, identify the real problem, and engineer a solution that actually works in the real world. Our products are live, our clients are happy, and our team ships on time.
           </p>
 
           {/* Mission / Vision cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
             {[
-              { label: 'Mission', icon: '🎯', color: '#FF7A00', text: 'Engineer reliable software that lets businesses operate smarter and compete globally.' },
-              { label: 'Vision',  icon: '🔭', color: '#9B3FFF', text: 'Become a trusted global tech partner recognized for innovation, quality, and digital impact.' },
+              { label: 'Mission', icon: '🎯', color: '#FF7A00', text: 'Build reliable, affordable software that helps Bangladeshi and global businesses operate smarter — without enterprise-level complexity.' },
+              { label: 'Vision',  icon: '🔭', color: '#9B3FFF', text: 'Become Bangladesh\'s most trusted software partner — known for shipping real products that solve real problems.' },
             ].map(({ label, icon, color, text }) => (
               <div
                 key={label}
