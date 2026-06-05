@@ -5,10 +5,10 @@ import { fadeUp, stagger } from '@/lib/motion'
 import { useTheme } from '@/lib/theme'
 
 const stats = [
-  { value: '40+', label: 'Projects Delivered' },
-  { value: '98%', label: 'Client Satisfaction' },
-  { value: '5+',  label: 'Years of Excellence' },
-  { value: '15+', label: 'Global Clients' },
+  { value: '3',   label: 'SaaS Products' },
+  { value: '1',   label: 'Live Clients' },
+  { value: '10+', label: 'Tech Stack' },
+  { value: '2+',  label: 'Industries Served' },
 ]
 
 const avatars: [string, string][] = [
