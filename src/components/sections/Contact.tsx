@@ -69,7 +69,7 @@ export default function Contact() {
                            'Send Message →'
 
   return (
-    <section id="contact" aria-label="Contact Us" className={`py-24 px-[5%] ${isDark ? 'bg-ink-900' : 'bg-[#F9F6F2]'}`}>
+    <section id="contact" aria-label="Contact Us" className={`py-24 px-[5%] ${isDark ? 'bg-ink-900' : 'bg-sect-2'}`}>
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.35fr] gap-16 items-start">
 
         {/* Left: info */}

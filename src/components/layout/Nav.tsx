@@ -41,11 +41,18 @@ export default function Nav() {
         initial={{ y: -80 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`h-[70px] px-[5%] flex items-center justify-between transition-all duration-300 backdrop-blur-xl
-          ${isDark
-            ? `bg-ink-900/85 border-b border-white/10 ${scrolled ? 'shadow-2xl shadow-black/40' : ''}`
-            : `bg-[#FAFAF8]/90 border-b border-orange-100 ${scrolled ? 'shadow-lg shadow-orange-900/10' : ''}`
-          }`}
+        className={`h-[70px] px-[5%] flex items-center justify-between transition-all duration-500 border-b ${
+          isDark
+            ? `border-white/[0.07] ${scrolled ? 'shadow-2xl shadow-black/50' : ''}`
+            : `border-black/[0.06] ${scrolled ? 'shadow-md shadow-orange-900/10' : ''}`
+        }`}
+        style={{
+          backdropFilter: 'blur(24px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+          backgroundColor: isDark
+            ? 'rgba(13,13,20,0.45)'
+            : 'rgba(255,255,255,0.45)',
+        }}
       >
         {/* Logo */}
         <button

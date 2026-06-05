@@ -22,7 +22,7 @@ export default function About() {
     <section
       id="about"
       aria-label="About StackLeo"
-      className={`py-24 px-[5%] ${isDark ? 'bg-ink-800' : 'bg-[#F5F7FA]'}`}
+      className={`py-24 px-[5%] ${isDark ? 'bg-ink-800' : 'bg-sect-2'}`}
     >
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* Left: code block — always dark, intentional code-editor look */}
