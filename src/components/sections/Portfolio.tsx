@@ -1,3 +1,5 @@
+import Image from 'next/image'
+import Link from 'next/link'
 import MView from '@/components/ui/MView'
 import Pill from '@/components/ui/Pill'
 import { projects } from '@/lib/data/portfolio'
@@ -20,23 +22,23 @@ export default function Portfolio() {
         </MView>
 
         <MView>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
-            {projects.map(({ emoji, bg, cat, name, desc, tags, impact }) => (
-              <article
-                key={name}
-                className="group rounded-2xl overflow-hidden border h-full flex flex-col
-                  transition-all duration-300 -translate-y-0 hover:-translate-y-1.5
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-stretch">
+            {projects.map(({ slug, image, cat, name, desc, tags, impact }) => (
+              <Link
+                key={slug}
+                href={`/portfolio/${slug}`}
+                className="group rounded-2xl overflow-hidden border flex flex-col h-full
+                  transition-all duration-300 hover:-translate-y-1.5
                   bg-card border-line shadow-md hover:shadow-2xl hover:border-orange-500/20"
               >
-                {/* Emoji hero banner */}
-                <div className={`h-40 bg-gradient-to-br ${bg} flex items-center justify-center text-5xl shrink-0 relative overflow-hidden`}>
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{ background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05), transparent 60%)' }}
+                <div className="relative h-48 shrink-0 overflow-hidden">
+                  <Image
+                    src={`/${image}`}
+                    alt={name}
+                    fill
+                    sizes="(max-width:640px)100vw,50vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
-                  <span className="select-none inline-block relative z-[1] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
-                    {emoji}
-                  </span>
                 </div>
 
                 <div className="p-5 flex flex-col flex-1">
@@ -58,7 +60,7 @@ export default function Portfolio() {
                     <span>📈</span>{impact}
                   </div>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </MView>

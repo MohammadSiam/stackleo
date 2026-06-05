@@ -1,56 +1,40 @@
-export const projects = [
+export type Project = {
+  slug: string
+  image: string
+  cat: string
+  name: string
+  desc: string
+  longDesc: string
+  tags: readonly string[]
+  impact: string
+  liveUrl?: string
+}
+
+export const projects: readonly Project[] = [
   {
-    emoji: '🛒',
-    bg: 'from-slate-900 to-slate-800',
-    cat: 'E-Commerce',
-    name: 'MarketHub — Multi-Vendor Platform',
-    desc: 'Scalable marketplace for 200+ vendors with real-time inventory, payments, and analytics.',
-    tags: ['React', 'Node.js', 'PostgreSQL', 'AWS'],
-    impact: '50,000+ daily users · 3× revenue growth',
+    slug: 'outfit',
+    image: 'outfit.stackleo.com.png',
+    cat: 'Fashion / E-Commerce',
+    name: 'Outfit — Online Fashion Store',
+    desc: 'A modern fashion e-commerce platform with curated collections, seamless checkout, and a personalised shopping experience.',
+    longDesc: 'Outfit is a full-featured fashion retail platform built for speed and conversion. It features a dynamic product catalogue with advanced filtering, a mobile-first responsive UI, Stripe-powered secure checkout, and an admin dashboard for inventory and order management. The platform delivers a smooth, branded shopping experience optimised for high traffic.',
+    tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Stripe', 'PostgreSQL', 'Vercel'],
+    impact: 'Live store · fast checkout · mobile-optimised',
+    liveUrl: 'https://outfit.stackleo.com',
   },
   {
-    emoji: '🏦',
-    bg: 'from-[#0D1B2A] to-[#1A3A5C]',
-    cat: 'FinTech / SaaS',
-    name: 'PayFlow — Payment Gateway SaaS',
-    desc: 'Enterprise-grade payment infrastructure with fraud detection and multi-currency support.',
-    tags: ['Python', 'FastAPI', 'Redis', 'Kubernetes'],
-    impact: '$2M+ monthly · 99.99% uptime',
+    slug: 'lenden',
+    image: 'lenden.stackleo.com.png',
+    cat: 'FinTech / Lending',
+    name: 'LenDen — Peer Lending Platform',
+    desc: 'A transparent peer-to-peer lending platform enabling individuals to lend and borrow with flexible terms and real-time tracking.',
+    longDesc: 'LenDen is a FinTech platform that connects lenders and borrowers directly, cutting out traditional intermediaries. It features automated loan matching, repayment scheduling, interest calculation, and a live dashboard for tracking portfolio performance. Built with security and compliance at its core, LenDen simplifies personal finance for both parties.',
+    tags: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT', 'Docker'],
+    impact: 'Transparent lending · real-time tracking · secure auth',
+    liveUrl: 'https://lenden.stackleo.com',
   },
-  {
-    emoji: '📊',
-    bg: 'from-[#1A0A00] to-[#3D1800]',
-    cat: 'Enterprise',
-    name: 'OpsCore — ERP & Analytics Suite',
-    desc: 'End-to-end ERP with real-time BI dashboards, HR, inventory, and finance modules.',
-    tags: ['Next.js', 'TypeScript', 'MySQL', 'Docker'],
-    impact: '35% cost reduction · 500+ employees',
-  },
-  {
-    emoji: '🏥',
-    bg: 'from-[#0A1A0C] to-[#1A3A1E]',
-    cat: 'HealthTech / Mobile',
-    name: 'MediTrack — Patient Management App',
-    desc: 'HIPAA-compliant app for clinic management, appointments, and telemedicine.',
-    tags: ['React Native', 'Node.js', 'MongoDB'],
-    impact: '4.8★ App Store · 10,000+ patients',
-  },
-  {
-    emoji: '📚',
-    bg: 'from-[#1A0A1A] to-[#2E1A3A]',
-    cat: 'EdTech / SaaS',
-    name: 'LearnBridge — LMS Platform',
-    desc: 'Feature-rich LMS with live classes, assessments, and progress analytics.',
-    tags: ['Vue.js', 'Laravel', 'GCP'],
-    impact: '30,000+ learners · 3 countries',
-  },
-  {
-    emoji: '🚚',
-    bg: 'from-[#0A0A1A] to-[#151530]',
-    cat: 'Logistics / IoT',
-    name: 'FleetSync — Smart Logistics Dashboard',
-    desc: 'Real-time fleet tracking and route optimization with IoT sensor integration.',
-    tags: ['React', 'Python', 'MQTT', 'MapBox'],
-    impact: '20% fuel savings · 500+ vehicles',
-  },
-] as const
+]
+
+export function getProjectBySlug(slug: string): Project | undefined {
+  return projects.find((p) => p.slug === slug)
+}
