@@ -14,16 +14,16 @@ export default function Portfolio() {
             className="font-display font-black tracking-tight mb-3 mt-3 text-fg"
             style={{ fontSize: 'clamp(2rem,3.5vw,3rem)' }}
           >
-            Projects We&apos;re <span className="grad-text">Proud Of</span>
+            Products We&apos;ve <span className="grad-text">Built</span>
           </h2>
           <p className="text-base max-w-[520px] mx-auto leading-relaxed text-muted">
-            Curated solutions we&apos;ve engineered for forward-thinking businesses worldwide.
+            In-house SaaS products we&apos;ve designed, built, and shipped — solving real problems for real businesses.
           </p>
         </MView>
 
         <MView>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-stretch">
-            {projects.map(({ slug, image, cat, name, desc, tags, impact }) => (
+            {projects.map(({ slug, image, cat, label, name, desc, tags, impact, features }) => (
               <Link
                 key={slug}
                 href={`/portfolio/${slug}`}
@@ -39,6 +39,10 @@ export default function Portfolio() {
                     sizes="(max-width:640px)100vw,50vw"
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
+                  {/* In-house badge */}
+                  <div className="absolute top-3 left-3 text-[0.6rem] font-bold tracking-widest uppercase px-2 py-0.5 rounded-md bg-black/60 text-white/80 backdrop-blur-sm">
+                    {label}
+                  </div>
                 </div>
 
                 <div className="p-5 flex flex-col flex-1">
@@ -47,6 +51,15 @@ export default function Portfolio() {
                   <div className="font-display font-bold text-[0.95rem] mb-2 leading-snug text-fg">{name}</div>
 
                   <div className="text-sm leading-relaxed mb-3 text-faint">{desc}</div>
+
+                  {/* Key features */}
+                  <ul className="mb-3 space-y-1">
+                    {features.slice(0, 3).map((f) => (
+                      <li key={f} className="flex items-center gap-1.5 text-xs text-muted">
+                        <span className="text-orange-500 text-[0.6rem]">▸</span>{f}
+                      </li>
+                    ))}
+                  </ul>
 
                   <div className="flex flex-wrap gap-1.5 mb-3">
                     {tags.map((t) => (

@@ -4,19 +4,7 @@ import { motion } from 'framer-motion'
 import { fadeUp, stagger } from '@/lib/motion'
 import { useTheme } from '@/lib/theme'
 
-const stats = [
-  { value: '3',   label: 'SaaS Products' },
-  { value: '1',   label: 'Live Clients' },
-  { value: '10+', label: 'Tech Stack' },
-  { value: '2+',  label: 'Industries Served' },
-]
-
-const avatars: [string, string][] = [
-  ['#E84A00,#FFB800', 'AK'],
-  ['#7B2FFF,#CC33FF', 'RH'],
-  ['#1A8A40,#4DDE8A', 'MS'],
-  ['#C84020,#FF7A00', 'NF'],
-]
+const tagline = ['Founded 2024', 'Bangladesh-based', 'Modern Tech Stack', 'Agile Delivery']
 
 export default function Hero() {
   const { isDark } = useTheme()
@@ -124,16 +112,22 @@ export default function Hero() {
             </motion.a>
           </motion.div>
 
-          {/* Stats */}
+          {/* Tagline chips */}
           <motion.div
             variants={fadeUp}
-            className={`flex flex-wrap gap-x-10 gap-y-6 mt-10 pt-8 border-t ${isDark ? 'border-white/[0.08]' : 'border-orange-100'}`}
+            className={`flex flex-wrap gap-2 mt-10 pt-8 border-t ${isDark ? 'border-white/[0.08]' : 'border-orange-100'}`}
           >
-            {stats.map(({ value, label }) => (
-              <div key={label}>
-                <div className="font-display font-black text-3xl leading-none mb-1 grad-text">{value}</div>
-                <div className={`text-xs tracking-wide ${isDark ? 'text-white/35' : 'text-gray-500 font-medium'}`}>{label}</div>
-              </div>
+            {tagline.map((item) => (
+              <span
+                key={item}
+                className={`text-xs font-medium px-3 py-1 rounded-full border ${
+                  isDark
+                    ? 'bg-white/[0.04] border-white/10 text-white/40'
+                    : 'bg-orange-50 border-orange-100 text-orange-700/70'
+                }`}
+              >
+                {item}
+              </span>
             ))}
           </motion.div>
         </motion.div>
@@ -145,7 +139,7 @@ export default function Hero() {
           transition={{ duration: 0.9, delay: 0.3 }}
           className="relative h-[500px] hidden lg:block"
         >
-          {/* Card 1 — Live Sprint (top-left, floats up) */}
+          {/* Card 1 — Outfit POS (top-left, floats up) */}
           <motion.div
             animate={{ y: [0, -12, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
@@ -153,28 +147,24 @@ export default function Hero() {
               isDark ? 'bg-ink-700/95 border-purple-500/20' : 'bg-white border-gray-200 shadow-xl'
             }`}
           >
-            <div className="text-[0.65rem] font-bold tracking-widest uppercase text-orange-400 mb-2">Live Sprint</div>
+            <div className="text-[0.65rem] font-bold tracking-widest uppercase text-orange-400 mb-2">Live Product</div>
             <div className={`font-display font-bold text-sm mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-              E-Commerce Platform
+              Outfit POS
             </div>
             <div className={`text-xs mb-3 ${isDark ? 'text-white/40' : 'text-gray-500'}`}>
-              Scaling to 50k+ daily users
+              Fashion retail billing & inventory
             </div>
             <div className="flex gap-1.5 mb-3">
-              <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-orange-500/15 text-orange-400">React</span>
-              <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-400">Node.js</span>
+              <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-orange-500/15 text-orange-400">Next.js</span>
+              <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-400">PostgreSQL</span>
             </div>
-            <div className={`h-1 rounded-full overflow-hidden ${isDark ? 'bg-white/10' : 'bg-gray-100'}`}>
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: '78%' }}
-                transition={{ duration: 1.5, delay: 0.8 }}
-                className="h-full rounded-full grad-bg"
-              />
+            <div className="flex gap-1.5">
+              <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-green-500/15 text-green-400">✓ Live</span>
+              <span className={`text-[0.65rem] ${isDark ? 'text-white/25' : 'text-gray-400'}`}>outfit.stackleo.com</span>
             </div>
           </motion.div>
 
-          {/* Card 2 — StackLeo Projects (center, elevated) */}
+          {/* Card 2 — StackLeo (center, elevated) */}
           <div
             className={`absolute w-[92%] left-[4%] top-1/2 -translate-y-1/2 rounded-2xl p-5 border ${
               isDark ? 'bg-ink-700 border-orange-500/25' : 'bg-white border-orange-200'
@@ -189,45 +179,42 @@ export default function Hero() {
                 </svg>
               </div>
               <div>
-                <div className={`font-display font-bold text-sm ${isDark ? 'text-white' : 'text-gray-900'}`}>StackLeo Projects</div>
-                <div className={`text-xs ${isDark ? 'text-white/35' : 'text-gray-500'}`}>Real-time delivery pipeline</div>
+                <div className={`font-display font-bold text-sm ${isDark ? 'text-white' : 'text-gray-900'}`}>StackLeo</div>
+                <div className={`text-xs ${isDark ? 'text-white/35' : 'text-gray-500'}`}>Bangladesh-based software company</div>
               </div>
             </div>
 
             <div className="flex justify-between items-end">
               <div>
-                <div className={`text-[0.6rem] tracking-widest uppercase mb-1.5 ${isDark ? 'text-white/30' : 'text-gray-400'}`}>Team</div>
-                <div className="flex">
-                  {avatars.map(([gradient, initials], i) => (
-                    <div
-                      key={initials}
-                      className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-[0.55rem] font-black text-white"
-                      style={{
-                        background: `linear-gradient(135deg,${gradient})`,
-                        borderColor: isDark ? '#1C1C26' : '#fff',
-                        marginLeft: i ? '-8px' : 0,
-                      }}
-                    >
-                      {initials}
-                    </div>
-                  ))}
+                <div className={`text-[0.6rem] tracking-widest uppercase mb-1.5 ${isDark ? 'text-white/30' : 'text-gray-400'}`}>Founder</div>
+                <div className="flex items-center gap-2">
+                  <div
+                    className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-[0.55rem] font-black text-white"
+                    style={{
+                      background: 'linear-gradient(135deg,#E84A00,#FFB800)',
+                      borderColor: isDark ? '#1C1C26' : '#fff',
+                    }}
+                  >
+                    MS
+                  </div>
+                  <span className={`text-xs ${isDark ? 'text-white/40' : 'text-gray-500'}`}>Mohammad Siam</span>
                 </div>
               </div>
               <div className="text-right">
-                <div className="font-display font-black text-2xl grad-text">12</div>
-                <div className={`text-xs ${isDark ? 'text-white/30' : 'text-gray-400'}`}>Active Sprints</div>
+                <div className="font-display font-black text-2xl grad-text">2</div>
+                <div className={`text-xs ${isDark ? 'text-white/30' : 'text-gray-400'}`}>Products Live</div>
               </div>
             </div>
 
             <div className={`mt-3 pt-3 border-t flex justify-between items-center ${isDark ? 'border-white/[0.08]' : 'border-gray-100'}`}>
               <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-green-500/15 text-green-400">
-                ✓ All Deployments Nominal
+                ✓ Both Products Online
               </span>
-              <span className={`text-xs ${isDark ? 'text-white/25' : 'text-gray-300'}`}>2m ago</span>
+              <span className={`text-xs ${isDark ? 'text-white/25' : 'text-gray-300'}`}>stackleo.com</span>
             </div>
           </div>
 
-          {/* Card 3 — Latest Deploy (bottom-right, floats down) */}
+          {/* Card 3 — LenDen POS (bottom-right, floats down) */}
           <motion.div
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
@@ -235,14 +222,14 @@ export default function Hero() {
               isDark ? 'bg-ink-700/95 border-yellow-500/20' : 'bg-white border-gray-200 shadow-xl'
             }`}
           >
-            <div className="text-[0.65rem] font-bold tracking-widest uppercase text-yellow-500 mb-2">Latest Deploy</div>
-            <div className={`font-display font-bold text-sm mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>FinTech API v3.2</div>
+            <div className="text-[0.65rem] font-bold tracking-widest uppercase text-yellow-500 mb-2">Live Product</div>
+            <div className={`font-display font-bold text-sm mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>LenDen POS</div>
             <div className={`text-xs mb-3 ${isDark ? 'text-white/40' : 'text-gray-500'}`}>
-              Deployed 2h ago · All systems green
+              IT shop billing & stock management
             </div>
             <div className="flex gap-1.5">
               <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-green-500/15 text-green-400">✓ Live</span>
-              <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-orange-500/15 text-orange-400">AWS</span>
+              <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-orange-500/15 text-orange-400">Docker</span>
             </div>
           </motion.div>
         </motion.div>

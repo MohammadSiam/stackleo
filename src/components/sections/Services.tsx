@@ -1,8 +1,13 @@
+'use client'
+
 import MView from '@/components/ui/MView'
 import Pill from '@/components/ui/Pill'
-import { services } from '@/lib/data/services'
+import { services, additionalServices } from '@/lib/data/services'
+import { useTheme } from '@/lib/theme'
 
 export default function Services() {
+  const { isDark } = useTheme()
+
   return (
     <section id="services" aria-label="Services" className="py-24 px-[5%] bg-sect">
       <div className="max-w-[1200px] mx-auto">
@@ -12,15 +17,15 @@ export default function Services() {
             className="font-display font-black tracking-tight mb-3 mt-3 text-fg"
             style={{ fontSize: 'clamp(2rem,3.5vw,3rem)' }}
           >
-            Comprehensive Software <span className="grad-text">Services</span>
+            Core <span className="grad-text">Services</span>
           </h2>
           <p className="text-base max-w-[520px] mx-auto leading-relaxed text-muted">
-            From ideation to deployment, we cover every aspect of your digital product journey.
+            Three things we do exceptionally well — built on a foundation of modern engineering.
           </p>
         </MView>
 
         <MView>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 items-stretch mb-10">
             {services.map(({ icon, title, desc }) => (
               <article
                 key={title}
@@ -50,6 +55,27 @@ export default function Services() {
                 <div className="text-sm leading-relaxed text-faint">{desc}</div>
               </article>
             ))}
+          </div>
+
+          {/* Additional capabilities */}
+          <div className={`rounded-2xl px-6 py-5 border ${isDark ? 'bg-white/[0.02] border-white/[0.06]' : 'bg-white border-orange-100'}`}>
+            <div className={`text-[0.65rem] font-bold tracking-widest uppercase mb-3 ${isDark ? 'text-white/30' : 'text-gray-400'}`}>
+              Additional Capabilities
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {additionalServices.map((s) => (
+                <span
+                  key={s}
+                  className={`text-xs font-medium px-3 py-1.5 rounded-full border ${
+                    isDark
+                      ? 'bg-white/[0.04] border-white/10 text-white/50'
+                      : 'bg-orange-50 border-orange-100 text-orange-700/70'
+                  }`}
+                >
+                  {s}
+                </span>
+              ))}
+            </div>
           </div>
         </MView>
       </div>

@@ -28,7 +28,7 @@ export default async function PortfolioDetailPage({ params }: Props) {
   const project = getProjectBySlug(slug)
   if (!project) notFound()
 
-  const { image, cat, name, longDesc, tags, impact, liveUrl } = project
+  const { image, cat, label, name, longDesc, problem, features, tags, impact, liveUrl } = project
 
   return (
     <>
@@ -53,6 +53,10 @@ export default async function PortfolioDetailPage({ params }: Props) {
               className="object-cover"
               priority
             />
+            {/* Label badge */}
+            <div className="absolute top-4 left-4 text-[0.6rem] font-bold tracking-widest uppercase px-2.5 py-1 rounded-md bg-black/60 text-white/80 backdrop-blur-sm">
+              {label}
+            </div>
           </div>
 
           {/* Category */}
@@ -72,6 +76,25 @@ export default async function PortfolioDetailPage({ params }: Props) {
           <p className="text-base leading-relaxed text-muted mb-8 max-w-[680px]">
             {longDesc}
           </p>
+
+          {/* Problem block */}
+          <div className="rounded-2xl p-6 border border-line bg-card mb-8">
+            <div className="text-xs font-bold tracking-widest uppercase text-orange-500 mb-2">The Problem</div>
+            <p className="text-sm leading-relaxed text-muted">{problem}</p>
+          </div>
+
+          {/* Key features */}
+          <div className="mb-8">
+            <div className="text-xs font-bold tracking-widest uppercase text-muted mb-4">Key Features</div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {features.map((f) => (
+                <div key={f} className="flex items-center gap-2.5 text-sm text-fg">
+                  <span className="w-5 h-5 rounded-md bg-orange-500/15 flex items-center justify-center text-orange-500 text-xs shrink-0">▸</span>
+                  {f}
+                </div>
+              ))}
+            </div>
+          </div>
 
           {/* Tech tags */}
           <div className="flex flex-wrap gap-2 mb-8">

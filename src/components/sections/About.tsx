@@ -72,21 +72,6 @@ export default function About() {
               </pre>
             </div>
 
-            {/* 5★ floating badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.7, rotate: -10 }}
-              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className={`absolute -bottom-5 -right-5 rounded-xl px-5 py-3 text-center border ${
-                isDark
-                  ? 'bg-ink-700 border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]'
-                  : 'bg-white border-gray-200 shadow-xl'
-              }`}
-            >
-              <div className="font-display font-black text-2xl leading-none grad-text">5★</div>
-              <div className={`text-xs font-semibold mt-0.5 ${isDark ? 'text-white/45' : 'text-gray-500'}`}>Avg. Rating</div>
-            </motion.div>
           </div>
         </MView>
 
