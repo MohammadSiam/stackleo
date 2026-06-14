@@ -22,55 +22,56 @@ export default function Portfolio() {
         </MView>
 
         <MView>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-stretch">
-            {projects.map(({ slug, image, cat, label, name, desc, tags, impact, features }) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map(({ slug, image, cat, name, desc, tags }) => (
               <Link
                 key={slug}
                 href={`/portfolio/${slug}`}
-                className="group rounded-2xl overflow-hidden border flex flex-col h-full
-                  transition-all duration-300 hover:-translate-y-1.5
-                  bg-card border-line shadow-md hover:shadow-2xl hover:border-orange-500/20"
+                className="group rounded-2xl overflow-hidden border flex flex-col
+                  transition-all duration-300 hover:-translate-y-2
+                  bg-card border-line shadow-sm hover:shadow-2xl hover:border-orange-500/25"
               >
-                <div className="relative h-48 shrink-0 overflow-hidden">
+                {/* Image with hover overlay */}
+                <div className="relative h-52 shrink-0 overflow-hidden">
                   <Image
                     src={`/${image}`}
                     alt={name}
                     fill
-                    sizes="(max-width:640px)100vw,50vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  {/* In-house badge */}
-                  <div className="absolute top-3 left-3 text-[0.6rem] font-bold tracking-widest uppercase px-2 py-0.5 rounded-md bg-black/60 text-white/80 backdrop-blur-sm">
-                    {label}
+                  {/* Dark gradient overlay — always present, stronger on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent
+                    opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+
+                  {/* View Case Study CTA — slides up on hover */}
+                  <div className="absolute inset-0 flex items-center justify-center
+                    opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white
+                      border border-white/30 backdrop-blur-sm bg-white/10">
+                      View Case Study →
+                    </span>
+                  </div>
+
+                  {/* Category chip — bottom left of image */}
+                  <div className="absolute bottom-3 left-3 text-[0.6rem] font-bold tracking-widest uppercase
+                    px-2.5 py-1 rounded-md bg-black/50 text-white/90 backdrop-blur-sm">
+                    {cat}
                   </div>
                 </div>
 
+                {/* Card body */}
                 <div className="p-5 flex flex-col flex-1">
-                  <div className="text-[0.65rem] font-bold tracking-widest uppercase mb-1.5 grad-text">{cat}</div>
+                  <div className="font-display font-bold text-[0.95rem] leading-snug text-fg mb-2">{name}</div>
+                  <div className="text-sm leading-relaxed text-faint mb-4 flex-1">{desc}</div>
 
-                  <div className="font-display font-bold text-[0.95rem] mb-2 leading-snug text-fg">{name}</div>
-
-                  <div className="text-sm leading-relaxed mb-3 text-faint">{desc}</div>
-
-                  {/* Key features */}
-                  <ul className="mb-3 space-y-1">
-                    {features.slice(0, 3).map((f) => (
-                      <li key={f} className="flex items-center gap-1.5 text-xs text-muted">
-                        <span className="text-orange-500 text-[0.6rem]">▸</span>{f}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="flex flex-wrap gap-1.5 mb-3">
-                    {tags.map((t) => (
-                      <span key={t} className="text-[0.67rem] font-semibold px-2 py-0.5 rounded-md bg-orange-600 text-white">
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5">
+                    {tags.slice(0, 4).map((t) => (
+                      <span key={t} className="text-[0.65rem] font-semibold px-2 py-0.5 rounded-md bg-orange-600 text-white">
                         {t}
                       </span>
                     ))}
-                  </div>
-
-                  <div className="mt-auto text-xs pt-3 border-t flex items-center gap-1.5 border-line text-dim">
-                    <span>📈</span>{impact}
                   </div>
                 </div>
               </Link>

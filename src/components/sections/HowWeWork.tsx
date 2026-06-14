@@ -9,25 +9,25 @@ const steps = [
     num: '01',
     icon: '🔍',
     title: 'Discovery Call',
-    desc: "I take a free 30-minute call to understand your goals, pain points, and scope — before writing a single line of code.",
+    desc: 'A free 30-minute call to understand your goals, pain points, and scope — before writing a single line of code.',
   },
   {
     num: '02',
     icon: '📋',
     title: 'Proposal & Timeline',
-    desc: "I send a detailed scope document with my recommended tech stack, clear milestones, and a realistic timeline. No surprises.",
+    desc: 'A detailed scope document with our recommended tech stack, clear milestones, and a realistic timeline. No surprises.',
   },
   {
     num: '03',
     icon: '⚙️',
-    title: 'I Build It',
-    desc: "I personally handle everything — architecture, frontend, backend, and deployment. You get regular updates so you always know what's happening.",
+    title: 'We Build It',
+    desc: "Our team handles everything — architecture, frontend, backend, and deployment. You get regular updates so you always know what's happening.",
   },
   {
     num: '04',
     icon: '🚀',
     title: 'Launch & Handoff',
-    desc: "I deploy, run QA, and hand off the product to you — with documentation and ongoing support options if you need them.",
+    desc: 'We deploy, run QA, and hand off the product — with documentation and ongoing support options if you need them.',
   },
 ]
 
@@ -43,10 +43,10 @@ export default function HowWeWork() {
             className="font-display font-black tracking-tight mb-3 mt-3 text-fg"
             style={{ fontSize: 'clamp(2rem,3.5vw,3rem)' }}
           >
-            How I <span className="grad-text">Work</span>
+            How We <span className="grad-text">Work</span>
           </h2>
           <p className="text-base max-w-[520px] mx-auto leading-relaxed text-muted">
-            A transparent process from first call to final launch — you know exactly what I&apos;m building and when.
+            A transparent process from first call to final launch — you know exactly what we&apos;re building and when.
           </p>
         </MView>
 
