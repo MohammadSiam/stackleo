@@ -52,20 +52,8 @@ export default function HowWeWork() {
 
         <MView>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {steps.map(({ num, icon, title, desc }, i) => (
+            {steps.map(({ num, icon, title, desc }) => (
               <div key={num} className="relative flex flex-col">
-                {/* Connecting line (desktop) */}
-                {i < steps.length - 1 && (
-                  <div
-                    className="hidden lg:block absolute top-7 left-[calc(100%+10px)] w-[calc(100%-20px)] h-px pointer-events-none"
-                    style={{
-                      background: isDark
-                        ? 'linear-gradient(90deg,rgba(255,122,0,.3),rgba(255,122,0,.05))'
-                        : 'linear-gradient(90deg,rgba(232,74,0,.25),rgba(232,74,0,.04))',
-                    }}
-                    aria-hidden="true"
-                  />
-                )}
 
                 <article
                   className={`rounded-2xl p-6 border h-full flex flex-col transition-all duration-300 hover:-translate-y-1
