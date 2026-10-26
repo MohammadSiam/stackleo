@@ -1,77 +1,104 @@
 import type { Metadata } from 'next'
-import { Outfit, DM_Sans } from 'next/font/google'
+import { notFound } from 'next/navigation'
+import { Outfit, DM_Sans, Hind_Siliguri } from 'next/font/google'
 import { ThemeProvider } from '@/lib/theme'
 import CustomCursor from '@/components/ui/CustomCursor'
-import './globals.css'
+import { I18nProvider } from '@/i18n/I18nProvider'
+import { getDictionary } from '@/i18n/get-dictionary'
+import { hasLocale, localePath, locales } from '@/i18n/config'
+import '../globals.css'
 
 const outfit = Outfit({
   subsets: ['latin'],
-  variable: '--font-display',
+  variable: '--font-outfit',
   display: 'swap',
 })
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
-  variable: '--font-body',
+  variable: '--font-dm-sans',
   display: 'swap',
 })
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://stackleo.com'),
-  title: {
-    default: 'StackLeo — Software Development Company, Bangladesh',
-    template: '%s | StackLeo',
-  },
-  description:
-    'StackLeo builds scalable web apps, mobile apps, SaaS platforms, and enterprise software. Based in Dhaka, Bangladesh — serving clients worldwide.',
-  keywords: [
-    'software development Bangladesh',
-    'web application development',
-    'mobile app development',
-    'SaaS development',
-    'Next.js development',
-    'React development',
-    'software company Dhaka',
-    'StackLeo',
-  ],
-  authors: [{ name: 'StackLeo', url: 'https://stackleo.com' }],
-  creator: 'StackLeo',
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://stackleo.com',
-    siteName: 'StackLeo',
-    title: 'StackLeo — Software Development Company, Bangladesh',
-    description:
-      'Building software solutions that empower businesses. Custom web apps, mobile apps, SaaS platforms, and enterprise systems.',
-    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'StackLeo — Software Development Company, Bangladesh',
-    description: 'Building software solutions that empower businesses.',
-    images: ['/opengraph-image'],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
-  },
+// Fallback for Bangla glyphs, which Outfit/DM Sans don't have
+const hindSiliguri = Hind_Siliguri({
+  subsets: ['bengali'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-bangla',
+  display: 'swap',
+})
+
+export function generateStaticParams() {
+  return locales.map((lang) => ({ lang }))
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export async function generateMetadata({ params }: LayoutProps<'/[lang]'>): Promise<Metadata> {
+  const { lang } = await params
+  if (!hasLocale(lang)) return {}
+  const { meta } = await getDictionary(lang)
+
+  return {
+    metadataBase: new URL('https://stackleo.com'),
+    title: { default: meta.title, template: '%s | StackLeo' },
+    description: meta.description,
+    keywords: [
+      'software development Bangladesh',
+      'web application development',
+      'mobile app development',
+      'SaaS development',
+      'Next.js development',
+      'React development',
+      'software company Dhaka',
+      'StackLeo',
+    ],
+    authors: [{ name: 'StackLeo', url: 'https://stackleo.com' }],
+    creator: 'StackLeo',
+    alternates: {
+      canonical: localePath(lang, '/'),
+      languages: { en: '/', bn: '/bn' },
+    },
+    openGraph: {
+      type: 'website',
+      locale: lang === 'bn' ? 'bn_BD' : 'en_US',
+      url: localePath(lang, '/'),
+      siteName: 'StackLeo',
+      title: meta.title,
+      description: meta.ogDescription,
+      images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: meta.title,
+      description: meta.ogDescription,
+      images: ['/opengraph-image'],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+    },
+  }
+}
+
+export default async function RootLayout({ children, params }: LayoutProps<'/[lang]'>) {
+  const { lang } = await params
+  if (!hasLocale(lang)) notFound()
+  const dict = await getDictionary(lang)
+
   return (
     <html
-      lang="en"
-      className={`${outfit.variable} ${dmSans.variable} scroll-smooth`}
+      lang={lang}
+      className={`${outfit.variable} ${dmSans.variable} ${hindSiliguri.variable} scroll-smooth`}
       data-theme="dark"
       suppressHydrationWarning
     >
       <body className="bg-ink-900 text-gray-100 font-body antialiased" suppressHydrationWarning>
-        <ThemeProvider>
-          <CustomCursor />
-          {children}
-        </ThemeProvider>
+        <I18nProvider lang={lang} dict={dict}>
+          <ThemeProvider>
+            <CustomCursor />
+            {children}
+          </ThemeProvider>
+        </I18nProvider>
       </body>
     </html>
   )

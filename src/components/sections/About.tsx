@@ -5,6 +5,7 @@ import MView from '@/components/ui/MView'
 import Pill from '@/components/ui/Pill'
 import { fadeLeft, fadeRight } from '@/lib/motion'
 import { useTheme } from '@/lib/theme'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const techStack = [
   { label: 'React/Next.js',  darkColor: '#FF7A00', lightBg: '#fff5eb', lightText: '#c85000' },
@@ -17,6 +18,8 @@ const techStack = [
 
 export default function About() {
   const { isDark } = useTheme()
+  const { t } = useI18n()
+  const a = t.about
 
   return (
     <section
@@ -77,26 +80,26 @@ export default function About() {
 
         {/* Right: text */}
         <MView variants={fadeRight}>
-          <Pill>About StackLeo</Pill>
+          <Pill>{a.pill}</Pill>
           <h2
             className={`font-display font-black tracking-tight mb-4 mt-3 ${isDark ? 'text-white' : 'text-gray-900'}`}
             style={{ fontSize: 'clamp(2rem,3.5vw,3rem)', lineHeight: 1.15 }}
           >
-            Who We Are &amp;{' '}
-            <span className="grad-text">What We Stand For</span>
+            {a.title}{' '}
+            <span className="grad-text">{a.titleGrad}</span>
           </h2>
           <p className={`text-base leading-relaxed mb-3 ${isDark ? 'text-white/55' : 'text-gray-600'}`}>
-            StackLeo is a Dhaka-based software company building modern SaaS products, web applications, and mobile apps for businesses in Bangladesh and beyond.
+            {a.p1}
           </p>
           <p className={`text-sm leading-relaxed mb-6 ${isDark ? 'text-white/40' : 'text-gray-500'}`}>
-            We don&apos;t just write code — we understand your business, identify the real problem, and engineer a solution that actually works in the real world. Our products are live, our clients are happy, and our team ships on time.
+            {a.p2}
           </p>
 
           {/* Mission / Vision cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
             {[
-              { label: 'Mission', icon: '🎯', color: '#FF7A00', text: 'Build reliable, affordable software that helps Bangladeshi and global businesses operate smarter — without enterprise-level complexity.' },
-              { label: 'Vision',  icon: '🔭', color: '#9B3FFF', text: 'Become Bangladesh\'s most trusted software partner — known for shipping real products that solve real problems.' },
+              { ...a.mission, icon: '🎯', color: '#FF7A00' },
+              { ...a.vision, icon: '🔭', color: '#9B3FFF' },
             ].map(({ label, icon, color, text }) => (
               <div
                 key={label}

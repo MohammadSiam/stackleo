@@ -3,56 +3,34 @@
 import MView from '@/components/ui/MView'
 import Pill from '@/components/ui/Pill'
 import { useTheme } from '@/lib/theme'
-
-const steps = [
-  {
-    num: '01',
-    icon: '🔍',
-    title: 'Discovery Call',
-    desc: 'A free 30-minute call to understand your goals, pain points, and scope — before writing a single line of code.',
-  },
-  {
-    num: '02',
-    icon: '📋',
-    title: 'Proposal & Timeline',
-    desc: 'A detailed scope document with our recommended tech stack, clear milestones, and a realistic timeline. No surprises.',
-  },
-  {
-    num: '03',
-    icon: '⚙️',
-    title: 'We Build It',
-    desc: "Our team handles everything — architecture, frontend, backend, and deployment. You get regular updates so you always know what's happening.",
-  },
-  {
-    num: '04',
-    icon: '🚀',
-    title: 'Launch & Handoff',
-    desc: 'We deploy, run QA, and hand off the product — with documentation and ongoing support options if you need them.',
-  },
-]
+import { useI18n } from '@/i18n/I18nProvider'
 
 export default function HowWeWork() {
   const { isDark } = useTheme()
+  const { t } = useI18n()
+  const hw = t.how
 
   return (
     <section id="how-we-work" aria-label="How We Work" className="py-24 px-[5%] bg-sect">
       <div className="max-w-[1200px] mx-auto">
         <MView className="text-center mb-14">
-          <Pill>Process</Pill>
+          <Pill>{hw.pill}</Pill>
           <h2
             className="font-display font-black tracking-tight mb-3 mt-3 text-fg"
             style={{ fontSize: 'clamp(2rem,3.5vw,3rem)' }}
           >
-            How We <span className="grad-text">Work</span>
+            {hw.title} <span className="grad-text">{hw.titleGrad}</span>
           </h2>
           <p className="text-base max-w-[520px] mx-auto leading-relaxed text-muted">
-            A transparent process from first call to final launch — you know exactly what we&apos;re building and when.
+            {hw.desc}
           </p>
         </MView>
 
         <MView>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {steps.map(({ num, icon, title, desc }) => (
+            {hw.steps.map(({ icon, title, desc }, i) => {
+              const num = String(i + 1).padStart(2, '0')
+              return (
               <div key={num} className="relative flex flex-col">
 
                 <article
@@ -77,7 +55,7 @@ export default function HowWeWork() {
                   <div className="text-xs leading-relaxed text-muted">{desc}</div>
                 </article>
               </div>
-            ))}
+            )})}
           </div>
 
           {/* CTA nudge */}
@@ -89,10 +67,10 @@ export default function HowWeWork() {
                 isDark ? 'text-orange-400 hover:text-orange-300' : 'text-orange-600 hover:text-orange-700'
               }`}
             >
-              Start with a free discovery call →
+              {hw.cta}
             </a>
             <p className="text-xs text-dim">
-              Project pricing depends on scope and complexity — book a free discovery call for a custom quote.
+              {hw.pricingNote}
             </p>
           </div>
         </MView>

@@ -5,30 +5,39 @@ import Link from 'next/link'
 import Nav from '@/components/layout/Nav'
 import Footer from '@/components/layout/Footer'
 import { projects, getProjectBySlug } from '@/lib/data/portfolio'
+import { getDictionary } from '@/i18n/get-dictionary'
+import { hasLocale, localePath } from '@/i18n/config'
 
-type Props = { params: Promise<{ slug: string }> }
+type Props = PageProps<'/[lang]/portfolio/[slug]'>
 
 export async function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
+  const { lang, slug } = await params
   const project = getProjectBySlug(slug)
-  if (!project) return {}
+  if (!project || !hasLocale(lang)) return {}
+  const text = (await getDictionary(lang)).portfolio.projects[project.slug]
   return {
-    title: `${project.name} — Stackleo`,
-    description: project.desc,
+    title: text.name,
+    description: text.desc,
+    alternates: {
+      canonical: localePath(lang, `/portfolio/${slug}`),
+      languages: { en: `/portfolio/${slug}`, bn: `/bn/portfolio/${slug}` },
+    },
     openGraph: { images: [`/${project.image}`] },
   }
 }
 
 export default async function PortfolioDetailPage({ params }: Props) {
-  const { slug } = await params
+  const { lang, slug } = await params
   const project = getProjectBySlug(slug)
-  if (!project) notFound()
+  if (!project || !hasLocale(lang)) notFound()
 
-  const { image, cat, label, name, longDesc, problem, features, tags, impact, liveUrl } = project
+  const pf = (await getDictionary(lang)).portfolio
+  const { image, tags, liveUrl, page } = project
+  const { cat, label, name, longDesc, problem, features, impact } = pf.projects[project.slug]
 
   return (
     <>
@@ -37,10 +46,10 @@ export default async function PortfolioDetailPage({ params }: Props) {
         <div className="max-w-[960px] mx-auto px-[5%] py-16">
 
           <Link
-            href="/#portfolio"
+            href={localePath(lang, '/#portfolio')}
             className="inline-flex items-center gap-2 text-sm text-muted hover:text-fg mb-10 transition-colors"
           >
-            ← Back to Portfolio
+            {pf.back}
           </Link>
 
           {/* Hero image */}
@@ -79,13 +88,13 @@ export default async function PortfolioDetailPage({ params }: Props) {
 
           {/* Problem block */}
           <div className="rounded-2xl p-6 border border-line bg-card mb-8">
-            <div className="text-xs font-bold tracking-widest uppercase text-orange-500 mb-2">The Problem</div>
+            <div className="text-xs font-bold tracking-widest uppercase text-orange-500 mb-2">{pf.problem}</div>
             <p className="text-sm leading-relaxed text-muted">{problem}</p>
           </div>
 
           {/* Key features */}
           <div className="mb-8">
-            <div className="text-xs font-bold tracking-widest uppercase text-muted mb-4">Key Features</div>
+            <div className="text-xs font-bold tracking-widest uppercase text-muted mb-4">{pf.features}</div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {features.map((f) => (
                 <div key={f} className="flex items-center gap-2.5 text-sm text-fg">
@@ -111,6 +120,15 @@ export default async function PortfolioDetailPage({ params }: Props) {
               <span>📈</span> {impact}
             </div>
 
+            {page && (
+              <Link
+                href={localePath(lang, page)}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-display font-bold text-sm border border-line bg-card text-fg transition-all hover:-translate-y-0.5"
+              >
+                {pf.productPage}
+              </Link>
+            )}
+
             {liveUrl && (
               <a
                 href={liveUrl}
@@ -119,7 +137,7 @@ export default async function PortfolioDetailPage({ params }: Props) {
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-white font-display font-bold text-sm transition-all hover:-translate-y-0.5"
                 style={{ background: 'linear-gradient(90deg,#E84A00,#FF7A00,#FFB800)', boxShadow: '0 6px 24px rgba(255,122,0,.28)' }}
               >
-                View Live Site →
+                {pf.live}
               </a>
             )}
           </div>

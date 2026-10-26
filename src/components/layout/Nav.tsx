@@ -1,17 +1,20 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '@/lib/theme'
+import { useI18n } from '@/i18n/I18nProvider'
+import { localePath, stripLocale } from '@/i18n/config'
 
-const links: [string, string][] = [
-  ['About', 'about'],
-  ['Services', 'services'],
-  ['Why Us', 'why-us'],
-  ['Portfolio', 'portfolio'],
-  ['Contact', 'contact'],
-]
+const linkIds = [
+  ['about', 'about'],
+  ['services', 'services'],
+  ['whyUs', 'why-us'],
+  ['portfolio', 'portfolio'],
+  ['contact', 'contact'],
+] as const
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -19,6 +22,15 @@ export default function Nav() {
   const { isDark, toggleTheme } = useTheme()
   const pathname = usePathname()
   const router = useRouter()
+  const { t, lang, href } = useI18n()
+  const path = stripLocale(pathname)
+  const links = linkIds.map(([key, id]) => [t.nav.links[key], id] as const)
+  const langHref = localePath(lang === 'en' ? 'bn' : 'en', path)
+  const linkCls = `px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all ${
+    isDark
+      ? 'text-white/55 hover:text-white hover:bg-white/[0.07]'
+      : 'text-gray-600 hover:text-gray-900 hover:bg-orange-50'
+  }`
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20)
@@ -28,10 +40,10 @@ export default function Nav() {
 
   const handleLink = (id: string) => {
     setMenuOpen(false)
-    if (pathname === '/') {
+    if (path === '/') {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
     } else {
-      router.push(`/#${id}`)
+      router.push(href(`/#${id}`))
     }
   }
 
@@ -58,7 +70,7 @@ export default function Nav() {
         <button
           onClick={() => handleLink('hero')}
           className="focus-visible:outline-none"
-          aria-label="StackLeo home"
+          aria-label={t.nav.home}
         >
           <img src="/logo.svg" alt="StackLeo" style={{ height: 28, width: 'auto' }} />
         </button>
@@ -67,28 +79,35 @@ export default function Nav() {
         <ul className="hidden lg:flex items-center gap-1 list-none m-0 p-0" aria-label="Primary navigation">
           {links.map(([label, id]) => (
             <li key={id}>
-              <button
-                onClick={() => handleLink(id)}
-                className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all ${
-                  isDark
-                    ? 'text-white/55 hover:text-white hover:bg-white/[0.07]'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-orange-50'
-                }`}
-              >
+              <button onClick={() => handleLink(id)} className={linkCls}>
                 {label}
               </button>
             </li>
           ))}
 
-          {/* Theme toggle */}
+          {/* Language toggle */}
           <li className="ml-2">
+            <Link
+              href={langHref}
+              hrefLang={lang === 'en' ? 'bn' : 'en'}
+              aria-label={t.nav.switchLangLabel}
+              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                isDark ? 'bg-white/[0.07] hover:bg-white/10 text-white/80' : 'bg-gray-100 hover:bg-orange-100 text-gray-700'
+              }`}
+            >
+              {t.nav.switchLang}
+            </Link>
+          </li>
+
+          {/* Theme toggle */}
+          <li>
             <motion.button
               whileTap={{ scale: 0.92 }}
               onClick={toggleTheme}
               className={`p-2 rounded-lg text-base transition-colors ${
                 isDark ? 'bg-white/[0.07] hover:bg-white/10' : 'bg-gray-100 hover:bg-orange-100'
               }`}
-              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+              aria-label={isDark ? t.nav.lightMode : t.nav.darkMode}
             >
               {isDark ? '☀️' : '🌙'}
             </motion.button>
@@ -102,24 +121,32 @@ export default function Nav() {
               onClick={() => handleLink('contact')}
               className="ml-1 px-4 py-2 rounded-lg text-sm font-bold text-white bg-gradient-to-r from-orange-600 to-orange-400 glow"
             >
-              Get a Quote
+              {t.nav.quote}
             </motion.button>
           </li>
         </ul>
 
         {/* Mobile: theme + hamburger */}
         <div className="flex lg:hidden items-center gap-2">
+          <Link
+            href={langHref}
+            hrefLang={lang === 'en' ? 'bn' : 'en'}
+            aria-label={t.nav.switchLangLabel}
+            className={`px-2.5 py-1 rounded-lg text-sm font-semibold ${isDark ? 'text-white/80' : 'text-gray-700'}`}
+          >
+            {t.nav.switchLang}
+          </Link>
           <button
             onClick={toggleTheme}
             className="p-2 rounded-lg text-base"
-            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-label={isDark ? t.nav.lightMode : t.nav.darkMode}
           >
             {isDark ? '☀️' : '🌙'}
           </button>
           <button
             className="flex flex-col gap-1.5 p-1"
             onClick={() => setMenuOpen((v) => !v)}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={menuOpen ? t.nav.closeMenu : t.nav.openMenu}
             aria-expanded={menuOpen}
           >
             <motion.span
@@ -171,7 +198,7 @@ export default function Nav() {
                 onClick={() => handleLink('contact')}
                 className="mt-2 px-5 py-3 text-sm font-bold rounded-xl bg-gradient-to-r from-orange-600 to-orange-400 text-white text-center"
               >
-                Get a Quote
+                {t.nav.quote}
               </button>
             </nav>
           </motion.div>

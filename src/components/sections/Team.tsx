@@ -4,45 +4,47 @@ import Image from "next/image";
 import MView from "@/components/ui/MView";
 import Pill from "@/components/ui/Pill";
 import { useTheme } from "@/lib/theme";
+import { useI18n } from "@/i18n/I18nProvider";
+import type { Dictionary } from "@/i18n/dictionaries/en";
 
 type Member = {
+  key: keyof Dictionary["team"]["members"];
   initials: string;
   gradient: string;
-  name: string;
-  role: string;
-  sub?: string;
   skills: string[];
   linkedin?: string;
   photo?: string;
 };
 
-const members: Member[] = [
+const baseMembers: Member[] = [
   {
+    key: "siam",
     initials: "MS",
     gradient: "#E84A00,#FFB800",
-    name: "Mohammad Siam",
-    role: "Founder & CEO",
-    sub: "Full-Stack Engineer · Project Lead",
     skills: [],
     linkedin: "https://www.linkedin.com/in/siamk417/",
     photo: "/team/mohammad-siam.png",
   },
   {
+    key: "mojammel",
     initials: "MH",
     gradient: "#10B981,#38BDF8",
-    name: "Mojammel",
-    role: "Co-Founder · CTO",
-    sub: "Software Engineer",
     skills: [],
     linkedin: "https://www.linkedin.com/in/md-mojammel-haque-17858916a/",
     photo: "/team/mojammel.png",
   },
 ];
 
-function Avatar({ m, className }: { m: Member; className: string }) {
+function Avatar({
+  m,
+  className,
+}: {
+  m: Member & { name: string };
+  className: string;
+}) {
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl flex items-center justify-center font-display font-black text-white flex-shrink-0 ${className}`}
+      className={`relative overflow-hidden ${m.photo ? "" : "rounded-2xl"} flex items-center justify-center font-display font-black text-white flex-shrink-0 ${className}`}
       style={
         m.photo
           ? undefined
@@ -50,13 +52,7 @@ function Avatar({ m, className }: { m: Member; className: string }) {
       }
     >
       {m.photo ? (
-        <Image
-          src={m.photo}
-          alt={m.name}
-          fill
-          sizes="144px"
-          className="object-contain object-bottom"
-        />
+        <Image src={m.photo} alt={m.name} fill className="object-bottom" />
       ) : (
         m.initials
       )}
@@ -66,6 +62,8 @@ function Avatar({ m, className }: { m: Member; className: string }) {
 
 export default function Team() {
   const { isDark } = useTheme();
+  const { t } = useI18n();
+  const members = baseMembers.map((m) => ({ ...m, ...t.team.members[m.key] }));
   return (
     <section
       id="team"
@@ -74,16 +72,15 @@ export default function Team() {
     >
       <div className="max-w-[1200px] mx-auto">
         <MView className="text-center mb-14">
-          <Pill>The Team</Pill>
+          <Pill>{t.team.pill}</Pill>
           <h2
             className="font-display font-black tracking-tight mb-3 mt-3 text-fg"
             style={{ fontSize: "clamp(2rem,3.5vw,3rem)" }}
           >
-            Who&apos;s Behind <span className="grad-text">StackLeo</span>
+            {t.team.title} <span className="grad-text">StackLeo</span>
           </h2>
           <p className="text-base max-w-[520px] mx-auto leading-relaxed text-muted">
-            Led by a hands-on founder who stays involved in every project —
-            backed by a skilled team of developers, designers, and marketers.
+            {t.team.desc}
           </p>
         </MView>
 

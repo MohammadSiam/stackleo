@@ -45,7 +45,7 @@ export default function OGImage() {
           }}
         />
 
-        <div style={{ position: 'relative', textAlign: 'center' }}>
+        <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
           {/* Brand */}
           <div
             style={{
@@ -74,6 +74,8 @@ export default function OGImage() {
 
           <h1
             style={{
+              display: 'flex',
+              gap: '14px',
               fontSize: '56px',
               fontWeight: '800',
               color: 'white',
@@ -82,7 +84,7 @@ export default function OGImage() {
               maxWidth: '800px',
             }}
           >
-            Building Software{' '}
+            Building Software
             <span style={{ color: '#FF7A00' }}>Solutions</span>
           </h1>
 

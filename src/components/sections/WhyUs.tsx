@@ -1,11 +1,13 @@
 'use client'
 
 import MView from '@/components/ui/MView'
-import { whyUsItems } from '@/lib/data/why-us'
 import { useTheme } from '@/lib/theme'
+import { useI18n } from '@/i18n/I18nProvider'
 
 export default function WhyUs() {
   const { isDark } = useTheme()
+  const { t } = useI18n()
+  const w = t.whyUs
 
   return (
     <section
@@ -34,22 +36,22 @@ export default function WhyUs() {
               : 'bg-orange-100 text-orange-700 border-orange-200'
           }`}>
             <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
-            Why StackLeo
+            {w.pill}
           </span>
           <h2
             className={`font-display font-black tracking-tight mb-3 mt-3 ${isDark ? 'text-white' : 'text-fg'}`}
             style={{ fontSize: 'clamp(2rem,3.5vw,3rem)' }}
           >
-            What Sets Us <span className="grad-text">Apart</span>
+            {w.title} <span className="grad-text">{w.titleGrad}</span>
           </h2>
           <p className={`text-base max-w-[520px] mx-auto leading-relaxed ${isDark ? 'text-white/40' : 'text-muted'}`}>
-            We don&apos;t just build software. We engineer competitive advantages.
+            {w.desc}
           </p>
         </MView>
 
         <MView>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
-            {whyUsItems.map(({ icon, title, desc }, i) => (
+            {w.items.map(({ icon, title, desc }, i) => (
               <article
                 key={title}
                 className={`group relative rounded-2xl p-7 border overflow-hidden h-full flex flex-col

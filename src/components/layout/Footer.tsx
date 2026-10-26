@@ -1,19 +1,7 @@
-import BrandIcon from '@/components/ui/BrandIcon'
+'use client'
 
-const columns = [
-  {
-    title: 'Services',
-    links: ['Custom Software', 'Web Applications', 'Mobile Apps', 'UI/UX Design', 'Cloud & DevOps'],
-  },
-  {
-    title: 'Company',
-    links: ['About Us', 'Portfolio', 'Why StackLeo', 'Contact', 'Careers'],
-  },
-  {
-    title: 'Contact',
-    links: ['hello@stackleo.com', 'www.stackleo.com', 'Bangladesh 🇧🇩', '+880 1913-519903'],
-  },
-]
+import BrandIcon from '@/components/ui/BrandIcon'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const socials = [
   { label: 'LinkedIn', char: 'in', href: 'https://www.linkedin.com/company/stackleo/' },
@@ -21,6 +9,14 @@ const socials = [
 ]
 
 export default function Footer() {
+  const { t } = useI18n()
+  const f = t.footer
+  const columns = [
+    { title: f.servicesTitle, links: f.services },
+    { title: f.companyTitle, links: f.company },
+    { title: f.contactTitle, links: ['hello@stackleo.com', 'www.stackleo.com', f.location, '+880 1913-519903'] },
+  ]
+
   return (
     <footer className="pt-16 pb-8 px-[5%] border-t border-white/5" style={{ backgroundColor: '#08080C' }}>
       <div className="max-w-[1200px] mx-auto">
@@ -32,7 +28,7 @@ export default function Footer() {
               <span className="font-display font-extrabold text-lg tracking-tight grad-text">StackLeo</span>
             </a>
             <p className="text-sm text-white/35 leading-relaxed max-w-[240px] mb-4">
-              Building Software Solutions, Empowering Businesses — your trusted global technology partner.
+              {f.tagline}
             </p>
             <div className="flex gap-2">
               {socials.map(({ label, char, href }) => (
@@ -73,12 +69,12 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-wrap justify-between items-center pt-6 border-t border-white/5 gap-4">
           <p className="text-xs text-white/25">
-            &copy; 2026 <span className="font-bold grad-text">StackLeo</span>. All rights reserved.
+            &copy; 2026 <span className="font-bold grad-text">StackLeo</span>. {f.rights}
           </p>
           <div className="flex gap-5">
-            {['Privacy Policy', 'Terms of Service'].map((t) => (
-              <a key={t} href="#" className="text-xs text-white/25 hover:text-orange-400 transition-colors">
-                {t}
+            {[f.privacy, f.terms].map((label) => (
+              <a key={label} href="#" className="text-xs text-white/25 hover:text-orange-400 transition-colors">
+                {label}
               </a>
             ))}
           </div>

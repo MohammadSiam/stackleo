@@ -6,20 +6,20 @@ import MView from '@/components/ui/MView'
 import Pill from '@/components/ui/Pill'
 import { fadeLeft, fadeRight } from '@/lib/motion'
 import { useTheme } from '@/lib/theme'
+import { useI18n } from '@/i18n/I18nProvider'
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
-const contactInfo = [
-  { icon: '🌐', label: 'Website',  val: 'www.stackleo.com',     href: 'http://www.stackleo.com' },
-  { icon: '✉️', label: 'Email',    val: 'hello@stackleo.com',  href: 'mailto:hello@stackleo.com' },
-  { icon: '📍', label: 'Location', val: 'Bangladesh 🇧🇩',      href: null },
-  { icon: '📞', label: 'Phone',    val: '+880 1913-519903',     href: 'tel:+8801913519903' },
-]
-
-const serviceOptions = ['Custom Software', 'Web Application', 'Mobile App', 'UI/UX Design', 'Cloud & DevOps', 'SaaS Development', 'IT Consulting', 'Other']
-
 export default function Contact() {
   const { isDark } = useTheme()
+  const { t } = useI18n()
+  const c = t.contact
+  const contactInfo = [
+    { icon: '🌐', label: c.info.website,  val: 'www.stackleo.com',    href: 'http://www.stackleo.com' },
+    { icon: '✉️', label: c.info.email,    val: 'hello@stackleo.com', href: 'mailto:hello@stackleo.com' },
+    { icon: '📍', label: c.info.location, val: c.locationVal,         href: null },
+    { icon: '📞', label: c.info.phone,    val: '+880 1913-519903',    href: 'tel:+8801913519903' },
+  ]
   const [status, setStatus] = useState<Status>('idle')
   const [form, setForm] = useState({ fname: '', lname: '', email: '', phone: '', service: '', message: '' })
 
@@ -63,10 +63,10 @@ export default function Contact() {
     status === 'error'   ? 'linear-gradient(90deg,#C84020,#E84A00)' :
                            'linear-gradient(90deg,#E84A00,#FF7A00,#FFB800)'
   const btnLabel =
-    status === 'success' ? "✓ Message Sent! We'll respond within 24h" :
-    status === 'error'   ? '⚠ Something went wrong — please try again' :
-    status === 'loading' ? 'Sending…' :
-                           'Send Message →'
+    status === 'success' ? c.sent :
+    status === 'error'   ? c.error :
+    status === 'loading' ? c.sending :
+                           c.send
 
   return (
     <section id="contact" aria-label="Contact Us" className={`py-24 px-[5%] ${isDark ? 'bg-ink-900' : 'bg-sect-2'}`}>
@@ -74,15 +74,15 @@ export default function Contact() {
 
         {/* Left: info */}
         <MView variants={fadeLeft}>
-          <Pill>Get In Touch</Pill>
+          <Pill>{c.pill}</Pill>
           <h2
             className={`font-display font-black tracking-tight mb-3 mt-3 ${isDark ? 'text-white' : 'text-gray-900'}`}
             style={{ fontSize: 'clamp(2rem,3.5vw,3rem)' }}
           >
-            Let&apos;s Talk <span className="grad-text">Business</span>
+            {c.title} <span className="grad-text">{c.titleGrad}</span>
           </h2>
           <p className={`text-base leading-relaxed mb-6 ${isDark ? 'text-white/50' : 'text-gray-600'}`}>
-            Ready to start your project? We respond within 24 hours.
+            {c.desc}
           </p>
 
           <div className="flex flex-col gap-3">
@@ -126,47 +126,47 @@ export default function Contact() {
             isDark ? 'bg-ink-800 border-white/10' : 'bg-white border-gray-100 shadow-2xl'
           }`}>
             <h3 className={`font-display font-bold text-xl mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-              Send Us a Message
+              {c.formTitle}
             </h3>
             <p className={`text-sm mb-6 ${isDark ? 'text-white/40' : 'text-gray-500'}`}>
-              Our team will get back to you promptly.
+              {c.formDesc}
             </p>
 
             <form onSubmit={submit} noValidate>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                 <div>
-                  <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-white/60' : 'text-gray-700'}`}>First Name *</label>
+                  <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-white/60' : 'text-gray-700'}`}>{c.fname}</label>
                   <input value={form.fname} onChange={set('fname')} placeholder="John" className={inputCls} />
                 </div>
                 <div>
-                  <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-white/60' : 'text-gray-700'}`}>Last Name</label>
+                  <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-white/60' : 'text-gray-700'}`}>{c.lname}</label>
                   <input value={form.lname} onChange={set('lname')} placeholder="Smith" className={inputCls} />
                 </div>
                 <div>
-                  <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-white/60' : 'text-gray-700'}`}>Email *</label>
+                  <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-white/60' : 'text-gray-700'}`}>{c.email}</label>
                   <input type="email" value={form.email} onChange={set('email')} placeholder="john@company.com" className={inputCls} />
                 </div>
                 <div>
-                  <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-white/60' : 'text-gray-700'}`}>Phone</label>
+                  <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-white/60' : 'text-gray-700'}`}>{c.phone}</label>
                   <input type="tel" value={form.phone} onChange={set('phone')} placeholder="+1 (555) 000-0000" className={inputCls} />
                 </div>
               </div>
 
               <div className="mb-3">
-                <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-white/60' : 'text-gray-700'}`}>Service of Interest</label>
+                <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-white/60' : 'text-gray-700'}`}>{c.service}</label>
                 <select value={form.service} onChange={set('service')} className={inputCls}>
-                  <option value="">Select a service...</option>
-                  {serviceOptions.map((s) => <option key={s}>{s}</option>)}
+                  <option value="">{c.servicePlaceholder}</option>
+                  {c.services.map((s) => <option key={s}>{s}</option>)}
                 </select>
               </div>
 
               <div className="mb-5">
-                <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-white/60' : 'text-gray-700'}`}>Message *</label>
+                <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-white/60' : 'text-gray-700'}`}>{c.message}</label>
                 <textarea
                   value={form.message}
                   onChange={set('message')}
                   rows={4}
-                  placeholder="Tell us about your project, goals, and timeline..."
+                  placeholder={c.messagePlaceholder}
                   className={`${inputCls} resize-y`}
                 />
               </div>

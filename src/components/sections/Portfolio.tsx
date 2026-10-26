@@ -1,32 +1,40 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import MView from '@/components/ui/MView'
 import Pill from '@/components/ui/Pill'
 import { projects } from '@/lib/data/portfolio'
+import { useI18n } from '@/i18n/I18nProvider'
 
 export default function Portfolio() {
+  const { t, href } = useI18n()
+  const pf = t.portfolio
+
   return (
     <section id="portfolio" aria-label="Portfolio" className="py-24 px-[5%] bg-sect-2">
       <div className="max-w-[1200px] mx-auto">
         <MView className="text-center mb-14">
-          <Pill>Portfolio</Pill>
+          <Pill>{pf.pill}</Pill>
           <h2
             className="font-display font-black tracking-tight mb-3 mt-3 text-fg"
             style={{ fontSize: 'clamp(2rem,3.5vw,3rem)' }}
           >
-            Products We&apos;ve <span className="grad-text">Built</span>
+            {pf.title} <span className="grad-text">{pf.titleGrad}</span>
           </h2>
           <p className="text-base max-w-[520px] mx-auto leading-relaxed text-muted">
-            In-house SaaS products we&apos;ve designed, built, and shipped — solving real problems for real businesses.
+            {pf.desc}
           </p>
         </MView>
 
         <MView>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map(({ slug, image, cat, name, desc, tags }) => (
+            {projects.map(({ slug, image, tags, page }) => {
+              const { cat, name, desc } = pf.projects[slug]
+              return (
               <Link
                 key={slug}
-                href={`/portfolio/${slug}`}
+                href={href(page ?? `/portfolio/${slug}`)}
                 className="group rounded-2xl overflow-hidden border flex flex-col
                   transition-all duration-300 hover:-translate-y-2
                   bg-card border-line shadow-sm hover:shadow-2xl hover:border-orange-500/25"
@@ -49,7 +57,7 @@ export default function Portfolio() {
                     opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
                     <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white
                       border border-white/30 backdrop-blur-sm bg-white/10">
-                      View Case Study →
+                      {page ? pf.viewProduct : pf.viewCase}
                     </span>
                   </div>
 
@@ -75,7 +83,7 @@ export default function Portfolio() {
                   </div>
                 </div>
               </Link>
-            ))}
+            )})}
           </div>
         </MView>
       </div>

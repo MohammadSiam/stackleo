@@ -3,11 +3,12 @@
 import { motion } from 'framer-motion'
 import { fadeUp, stagger } from '@/lib/motion'
 import { useTheme } from '@/lib/theme'
-
-const tagline = ['Founded 2024', 'Bangladesh-based', 'Modern Tech Stack', 'Agile Delivery']
+import { useI18n } from '@/i18n/I18nProvider'
 
 export default function Hero() {
   const { isDark } = useTheme()
+  const { t } = useI18n()
+  const h = t.hero
 
   return (
     <section
@@ -61,7 +62,7 @@ export default function Hero() {
             }`}
           >
             <span className="w-2 h-2 rounded-full bg-orange-500 pulse-dot" />
-            Software Development Company — Bangladesh
+            {h.badge}
           </motion.div>
 
           {/* Heading */}
@@ -70,20 +71,19 @@ export default function Hero() {
             className={`font-display font-black leading-[1.05] tracking-tight mb-5 ${isDark ? 'text-white' : 'text-gray-900'}`}
             style={{ fontSize: 'clamp(2.6rem,5.5vw,4.5rem)' }}
           >
-            Building Software
+            {h.title1}
             <br />
-            Solutions,{' '}
-            <span className="grad-text">Empowering</span>
+            {h.title2}{' '}
+            <span className="grad-text">{h.titleGrad}</span>
             <br />
-            Businesses.
+            {h.title3}
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
             className={`text-lg leading-relaxed max-w-[500px] mb-8 ${isDark ? 'text-white/50' : 'text-gray-600'}`}
           >
-            StackLeo engineers high-quality, scalable digital solutions that help businesses
-            transform, grow, and compete globally — with precision and reliability.
+            {h.desc}
           </motion.p>
 
           {/* CTAs */}
@@ -95,7 +95,7 @@ export default function Hero() {
               onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-white font-display font-bold grad-bg glow"
             >
-              Get in Touch <span>→</span>
+              {h.cta} <span>→</span>
             </motion.a>
             <motion.a
               whileHover={{ y: -2 }}
@@ -108,7 +108,7 @@ export default function Hero() {
                   : 'text-gray-800 border-gray-300 bg-white hover:bg-gray-50 shadow-sm'
               }`}
             >
-              Explore Services
+              {h.ctaSecondary}
             </motion.a>
           </motion.div>
 
@@ -117,7 +117,7 @@ export default function Hero() {
             variants={fadeUp}
             className={`flex flex-wrap gap-2 mt-10 pt-8 border-t ${isDark ? 'border-white/[0.08]' : 'border-orange-100'}`}
           >
-            {tagline.map((item) => (
+            {h.tagline.map((item) => (
               <span
                 key={item}
                 className={`text-xs font-medium px-3 py-1 rounded-full border ${
@@ -147,19 +147,19 @@ export default function Hero() {
               isDark ? 'bg-ink-700/95 border-purple-500/20' : 'bg-white border-gray-200 shadow-xl'
             }`}
           >
-            <div className="text-[0.65rem] font-bold tracking-widest uppercase text-orange-400 mb-2">Live Product</div>
+            <div className="text-[0.65rem] font-bold tracking-widest uppercase text-orange-400 mb-2">{h.liveProduct}</div>
             <div className={`font-display font-bold text-sm mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
               Outfit POS
             </div>
             <div className={`text-xs mb-3 ${isDark ? 'text-white/40' : 'text-gray-500'}`}>
-              Fashion retail billing & inventory
+              {h.outfitDesc}
             </div>
             <div className="flex gap-1.5 mb-3">
               <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-orange-500/15 text-orange-400">Next.js</span>
               <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-400">PostgreSQL</span>
             </div>
             <div className="flex gap-1.5">
-              <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-green-500/15 text-green-400">✓ Live</span>
+              <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-green-500/15 text-green-400">{h.live}</span>
               <span className={`text-[0.65rem] ${isDark ? 'text-white/25' : 'text-gray-400'}`}>outfit.stackleo.com</span>
             </div>
           </motion.div>
@@ -180,13 +180,13 @@ export default function Hero() {
               </div>
               <div>
                 <div className={`font-display font-bold text-sm ${isDark ? 'text-white' : 'text-gray-900'}`}>StackLeo</div>
-                <div className={`text-xs ${isDark ? 'text-white/35' : 'text-gray-500'}`}>Bangladesh-based software company</div>
+                <div className={`text-xs ${isDark ? 'text-white/35' : 'text-gray-500'}`}>{h.companyDesc}</div>
               </div>
             </div>
 
             <div className="flex justify-between items-end">
               <div>
-                <div className={`text-[0.6rem] tracking-widest uppercase mb-1.5 ${isDark ? 'text-white/30' : 'text-gray-400'}`}>Founder</div>
+                <div className={`text-[0.6rem] tracking-widest uppercase mb-1.5 ${isDark ? 'text-white/30' : 'text-gray-400'}`}>{h.founder}</div>
                 <div className="flex items-center gap-2">
                   <div
                     className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-[0.55rem] font-black text-white"
@@ -197,18 +197,18 @@ export default function Hero() {
                   >
                     MS
                   </div>
-                  <span className={`text-xs ${isDark ? 'text-white/40' : 'text-gray-500'}`}>Mohammad Siam</span>
+                  <span className={`text-xs ${isDark ? 'text-white/40' : 'text-gray-500'}`}>{h.founderName}</span>
                 </div>
               </div>
               <div className="text-right">
                 <div className="font-display font-black text-2xl grad-text">2</div>
-                <div className={`text-xs ${isDark ? 'text-white/30' : 'text-gray-400'}`}>Products Live</div>
+                <div className={`text-xs ${isDark ? 'text-white/30' : 'text-gray-400'}`}>{h.productsLive}</div>
               </div>
             </div>
 
             <div className={`mt-3 pt-3 border-t flex justify-between items-center ${isDark ? 'border-white/[0.08]' : 'border-gray-100'}`}>
               <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-green-500/15 text-green-400">
-                ✓ Both Products Online
+                {h.bothOnline}
               </span>
               <span className={`text-xs ${isDark ? 'text-white/25' : 'text-gray-300'}`}>stackleo.com</span>
             </div>
@@ -222,13 +222,13 @@ export default function Hero() {
               isDark ? 'bg-ink-700/95 border-yellow-500/20' : 'bg-white border-gray-200 shadow-xl'
             }`}
           >
-            <div className="text-[0.65rem] font-bold tracking-widest uppercase text-yellow-500 mb-2">Live Product</div>
+            <div className="text-[0.65rem] font-bold tracking-widest uppercase text-yellow-500 mb-2">{h.liveProduct}</div>
             <div className={`font-display font-bold text-sm mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>LenDen POS</div>
             <div className={`text-xs mb-3 ${isDark ? 'text-white/40' : 'text-gray-500'}`}>
-              IT shop billing & stock management
+              {h.lendenDesc}
             </div>
             <div className="flex gap-1.5">
-              <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-green-500/15 text-green-400">✓ Live</span>
+              <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-green-500/15 text-green-400">{h.live}</span>
               <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded bg-orange-500/15 text-orange-400">Docker</span>
             </div>
           </motion.div>

@@ -45,8 +45,8 @@
   --color-pill-ring: var(--theme-pill-ring);
 
   /* ── Typography ─────────────────────────────────────────────── */
-  --font-display: "Outfit", sans-serif;
-  --font-body: "DM Sans", sans-serif;
+  --font-display: var(--font-outfit), var(--font-bangla), sans-serif;
+  --font-body: var(--font-dm-sans), var(--font-bangla), sans-serif;
 }
 
 /* ── Dark mode defaults ─────────────────────────────────────── */

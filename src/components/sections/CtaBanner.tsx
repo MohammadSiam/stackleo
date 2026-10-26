@@ -2,9 +2,11 @@
 
 import MView from '@/components/ui/MView'
 import { useTheme } from '@/lib/theme'
+import { useI18n } from '@/i18n/I18nProvider'
 
 export default function CtaBanner() {
   const { isDark } = useTheme()
+  const { t } = useI18n()
 
   return (
     <section
@@ -34,17 +36,17 @@ export default function CtaBanner() {
               ? 'bg-orange-500/10 text-orange-300 border-orange-500/20'
               : 'bg-orange-500/15 text-orange-700 border-orange-300'
           }`}>
-            🚀 Let&apos;s Collaborate
+            {t.cta.badge}
           </div>
           <h2
             className={`font-display font-black tracking-tight mb-4 mt-2 ${isDark ? 'text-white' : 'text-gray-900'}`}
             style={{ fontSize: 'clamp(2rem,4vw,3rem)' }}
           >
-            Let&apos;s Build the{' '}
-            <span className="grad-text">Future Together</span>
+            {t.cta.title}{' '}
+            <span className="grad-text">{t.cta.titleGrad}</span>
           </h2>
           <p className={`text-base leading-relaxed mb-8 ${isDark ? 'text-white/70' : 'text-gray-600'}`}>
-            We collaborate with businesses to transform ideas into powerful digital products that deliver measurable results.
+            {t.cta.desc}
           </p>
           <a
             href="#contact"
@@ -55,7 +57,7 @@ export default function CtaBanner() {
                 : 'text-orange-600 bg-white shadow-xl hover:shadow-2xl'
             }`}
           >
-            Start a Project →
+            {t.cta.button}
           </a>
         </MView>
       </div>

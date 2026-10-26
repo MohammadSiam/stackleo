@@ -17,11 +17,11 @@ export default function Home() {
       <main>
         <Hero />
         <About />
-        <Team />
         <Services />
         <WhyUs />
         <HowWeWork />
         <Portfolio />
+        <Team />
         <CtaBanner />
         <Contact />
       </main>

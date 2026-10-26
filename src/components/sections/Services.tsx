@@ -2,31 +2,33 @@
 
 import MView from '@/components/ui/MView'
 import Pill from '@/components/ui/Pill'
-import { services, additionalServices } from '@/lib/data/services'
 import { useTheme } from '@/lib/theme'
+import { useI18n } from '@/i18n/I18nProvider'
 
 export default function Services() {
   const { isDark } = useTheme()
+  const { t } = useI18n()
+  const sv = t.services
 
   return (
     <section id="services" aria-label="Services" className="py-24 px-[5%] bg-sect">
       <div className="max-w-[1200px] mx-auto">
         <MView className="text-center mb-14">
-          <Pill>What We Do</Pill>
+          <Pill>{sv.pill}</Pill>
           <h2
             className="font-display font-black tracking-tight mb-3 mt-3 text-fg"
             style={{ fontSize: 'clamp(2rem,3.5vw,3rem)' }}
           >
-            Core <span className="grad-text">Services</span>
+            {sv.title} <span className="grad-text">{sv.titleGrad}</span>
           </h2>
           <p className="text-base max-w-[520px] mx-auto leading-relaxed text-muted">
-            Three things we do exceptionally well — built on a foundation of modern engineering.
+            {sv.desc}
           </p>
         </MView>
 
         <MView>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 items-stretch mb-10">
-            {services.map(({ icon, title, desc }) => (
+            {sv.items.map(({ icon, title, desc }) => (
               <article
                 key={title}
                 className="group relative rounded-2xl p-7 border overflow-hidden h-full flex flex-col
@@ -60,10 +62,10 @@ export default function Services() {
           {/* Additional capabilities */}
           <div className={`rounded-2xl px-6 py-5 border ${isDark ? 'bg-white/[0.02] border-white/[0.06]' : 'bg-white border-orange-100'}`}>
             <div className={`text-[0.65rem] font-bold tracking-widest uppercase mb-3 ${isDark ? 'text-white/30' : 'text-gray-400'}`}>
-              Additional Capabilities
+              {sv.additionalTitle}
             </div>
             <div className="flex flex-wrap gap-2">
-              {additionalServices.map((s) => (
+              {sv.additional.map((s) => (
                 <span
                   key={s}
                   className={`text-xs font-medium px-3 py-1.5 rounded-full border ${
