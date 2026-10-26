@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import Image from "next/image";
 import MView from "@/components/ui/MView";
 import Pill from "@/components/ui/Pill";
 import { useTheme } from "@/lib/theme";
@@ -13,18 +13,10 @@ type Member = {
   sub?: string;
   skills: string[];
   linkedin?: string;
-  center?: boolean;
+  photo?: string;
 };
 
 const members: Member[] = [
-  {
-    initials: "TS",
-    gradient: "#3B82F6,#9B3FFF",
-    name: "Tonmoy",
-    role: "CTO · Full-Stack Engineer",
-    skills: ["React", "Next.js", "Python"],
-    linkedin: "https://www.linkedin.com/in/tonmoy-dev/",
-  },
   {
     initials: "MS",
     gradient: "#E84A00,#FFB800",
@@ -33,38 +25,47 @@ const members: Member[] = [
     sub: "Full-Stack Engineer · Project Lead",
     skills: [],
     linkedin: "https://www.linkedin.com/in/siamk417/",
-    center: true,
+    photo: "/team/mohammad-siam.png",
   },
   {
     initials: "MH",
     gradient: "#10B981,#38BDF8",
     name: "Mojammel",
-    role: "Co-Founder · Frontend Engineer",
-    skills: ["React", "Next.js", "UI"],
+    role: "Co-Founder · CTO",
+    sub: "Software Engineer",
+    skills: [],
     linkedin: "https://www.linkedin.com/in/md-mojammel-haque-17858916a/",
+    photo: "/team/mojammel.png",
   },
 ];
 
+function Avatar({ m, className }: { m: Member; className: string }) {
+  return (
+    <div
+      className={`relative overflow-hidden rounded-2xl flex items-center justify-center font-display font-black text-white flex-shrink-0 ${className}`}
+      style={
+        m.photo
+          ? undefined
+          : { background: `linear-gradient(135deg,${m.gradient})` }
+      }
+    >
+      {m.photo ? (
+        <Image
+          src={m.photo}
+          alt={m.name}
+          fill
+          sizes="144px"
+          className="object-contain object-bottom"
+        />
+      ) : (
+        m.initials
+      )}
+    </div>
+  );
+}
+
 export default function Team() {
   const { isDark } = useTheme();
-  const [hovered, setHovered] = useState<number | null>(null);
-
-  const cardStyle = (i: number, isCenter: boolean): React.CSSProperties => {
-    const isHov = hovered === i;
-    const blurred = !isCenter && hovered !== i;
-    return {
-      filter: blurred ? "blur(1.5px)" : "none",
-      opacity: blurred ? 0.72 : 1,
-      transform: isHov
-        ? "translateY(-10px) scale(1.04)"
-        : isCenter
-          ? "scale(1)"
-          : "scale(0.96)",
-      zIndex: isHov ? 20 : isCenter ? 10 : 0,
-      transition: "all 0.3s cubic-bezier(0.4,0,0.2,1)",
-    };
-  };
-
   return (
     <section
       id="team"
@@ -87,42 +88,25 @@ export default function Team() {
         </MView>
 
         <MView>
-          {/* Desktop: 3-card fan */}
-          <div className="hidden md:flex items-center justify-center">
-            {members.map((m, i) => (
+          {/* Desktop: side by side */}
+          <div className="hidden md:flex items-stretch justify-center gap-6">
+            {members.map((m) => (
               <div
                 key={m.name}
-                className={`relative rounded-2xl border flex flex-col items-center text-center cursor-default
-                  ${m.center ? "-mx-0 px-8 py-10 w-72" : "px-6 py-8 w-60 -mx-5"}
+                className={`rounded-2xl border flex flex-col items-center text-center px-8 py-10 w-72 transition-transform duration-300 hover:-translate-y-2
                   ${
                     isDark
                       ? "bg-[#13131f] border-white/[0.08]"
                       : "bg-white border-line shadow-md"
                   }`}
-                style={cardStyle(i, !!m.center)}
-                onMouseEnter={() => setHovered(i)}
-                onMouseLeave={() => setHovered(null)}
               >
                 {/* Avatar */}
-                <div
-                  className={`rounded-2xl flex items-center justify-center font-display font-black text-white mb-4 flex-shrink-0 ${
-                    m.center ? "w-20 h-20 text-2xl" : "w-14 h-14 text-lg"
-                  }`}
-                  style={{
-                    background: `linear-gradient(135deg,${m.gradient})`,
-                  }}
-                >
-                  {m.initials}
-                </div>
+                <Avatar m={m} className="mb-4 w-28 h-36 text-2xl" />
 
-                <div
-                  className={`font-display font-bold text-fg mb-0.5 ${m.center ? "text-lg" : "text-sm"}`}
-                >
+                <div className="font-display font-bold text-fg mb-0.5 text-lg">
                   {m.name}
                 </div>
-                <div
-                  className={`font-bold tracking-widest uppercase grad-text mb-1 ${m.center ? "text-xs" : "text-[0.6rem]"}`}
-                >
+                <div className="font-bold tracking-widest uppercase grad-text mb-1 text-xs">
                   {m.role}
                 </div>
                 {m.sub && (
@@ -164,9 +148,9 @@ export default function Team() {
             ))}
           </div>
 
-          {/* Mobile: vertical stack, Siam first */}
+          {/* Mobile: vertical stack */}
           <div className="md:hidden flex flex-col items-center gap-4">
-            {[members[1], members[0], members[2]].map((m) => (
+            {members.map((m) => (
               <div
                 key={m.name}
                 className={`rounded-2xl border w-full max-w-[320px] px-6 py-7 text-center ${
@@ -175,14 +159,7 @@ export default function Team() {
                     : "bg-white border-line shadow-md"
                 }`}
               >
-                <div
-                  className="w-16 h-16 rounded-2xl mx-auto flex items-center justify-center font-display font-black text-white text-xl mb-3"
-                  style={{
-                    background: `linear-gradient(135deg,${m.gradient})`,
-                  }}
-                >
-                  {m.initials}
-                </div>
+                <Avatar m={m} className="w-[100px] h-32 mx-auto mb-3 text-xl" />
                 <div className="font-display font-bold text-base mb-0.5 text-fg">
                   {m.name}
                 </div>
